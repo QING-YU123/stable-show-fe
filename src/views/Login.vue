@@ -29,6 +29,7 @@ const router = useRouter()
 import { getUpsVideo } from "@/api/dm";
 import { message } from "@/components/message/message";
 import { useBiliStore } from '@/stores/bili';
+import { useMultUpStore } from '@/stores/multUp';
 
 const user = reactive({
   username: '',
@@ -37,6 +38,7 @@ const user = reactive({
 
 const userStore = useUserStore()
 const useBili = useBiliStore()
+const useMultUp = useMultUpStore()
 
 async function login() {
   try {
@@ -47,6 +49,7 @@ async function login() {
       userStore.setUserUid(user.username)
       userStore.setUserName(res.data[0].author)
       useBili.setBv(res.data[0].bvid)
+      useMultUp.addData(res.data[0].bvid)
       message('success', '登录成功！')
       router.push('/dashboard')
     }

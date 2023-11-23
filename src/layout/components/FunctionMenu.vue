@@ -11,7 +11,6 @@
 
 <script setup lang="ts" >
 import VideoList from "./function/VideoList.vue";
-import MainTopBar from "@/components/components/MainTopBar.vue";
 import { onMounted, reactive } from 'vue';
 import { getUpsVideo } from '@/api/dm';
 import { useUserStore } from "@/stores/user";
@@ -23,33 +22,31 @@ const userUid = useUserStore()
 const bili = useBiliStore()
 
 onMounted(async () => {
-    await getUid()
-    await getDate()
+    data.data = await pureGetData(userUid.getUserUid())
 })
 
 const data = reactive({
     data: {},
-    uid: ''
+    uid: '',
 })
 
-async function getDate() {
-    data.data = await getUpsVideo({
-        "mid": data.uid
+/**
+ * 获取数据
+ * @param {string} uid - 用户ID
+ * @returns {Promise<any>} - 包含视频信息的Promise对象
+ */
+async function pureGetData(uid: string): Promise<any> {
+    return await getUpsVideo({
+        "mid": uid
     });
 }
 
 function changeBv(bv: string) {
     bili.setBv(bv)
-}
+} 
+
 
 //19804019
-
-async function getUid() {
-    data.uid = userUid.getUserUid()
-    console.log(data.uid);
-}
-
-
 
 </script>
 

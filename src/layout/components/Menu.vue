@@ -14,7 +14,7 @@
         <span>仪表盘</span>
       </el-menu-item>
       <el-menu-item-group class="vr-menu__group-one" title="弹幕分析">
-        <el-menu-item class="vr-menu__item" index="userlist">
+        <el-menu-item class="vr-menu__item" index="multUpsAnalysis">
           <div class="vr-menu__item--svg">
             <svg fill="none" height="16" viewBox="0 0 20.00018310546875 16" width="20.00018310546875"
               xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -25,7 +25,7 @@
           </div>
           <span>多up分析</span>
         </el-menu-item>
-        <el-menu-item class="vr-menu__item" index="dash">
+        <el-menu-item class="vr-menu__item" index="sentimentAnalysis">
           <div class="vr-menu__item--svg">
             <svg fill="none" height="19.00048828125" viewBox="0 0 19.000457763671875 19.00048828125"
               width="19.000457763671875" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">

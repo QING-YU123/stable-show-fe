@@ -7,6 +7,8 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    AsideFigure: typeof import('./src/components/components/AsideFigure.vue')['default']
+    BigFigure: typeof import('./src/components/components/BigFigure.vue')['default']
     ElAside: typeof import('element-plus/es')['ElAside']
     ElBadge: typeof import('element-plus/es')['ElBadge']
     ElButton: typeof import('element-plus/es')['ElButton']
@@ -22,8 +24,10 @@ declare module 'vue' {
     ElText: typeof import('element-plus/es')['ElText']
     HighEnergyTimeChart: typeof import('./src/components/charts/HighEnergyTimeChart.vue')['default']
     MainTopBar: typeof import('./src/components/components/MainTopBar.vue')['default']
+    MidBar: typeof import('./src/components/components/MidBar.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    SentimentAnalysisChart: typeof import('./src/components/charts/SentimentAnalysisChart.vue')['default']
     SpatiotemporalChart: typeof import('./src/components/charts/SpatiotemporalChart.vue')['default']
   }
 }

@@ -22,6 +22,16 @@ const router = createRouter({
           path: '/highEnergyTime',
           name: 'highEnergyTime',
           component: () => import('../views/Home/HighEnergyTime.vue')
+        },
+        {
+          path: '/sentimentAnalysis',
+          name: 'sentimentAnalysis',
+          component: () => import('../views/Home/SentimentAnalysis.vue')
+        },
+        {
+          path: '/multUpsAnalysis',
+          name: 'multUpsAnalysis',
+          component: () => import('../views/Home/MultUpsAnalysis.vue')
         }
       ]
     },

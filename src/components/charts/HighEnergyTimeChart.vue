@@ -96,13 +96,29 @@ async function getDMS() {
             }
         },
         xAxis: {
+            name: '视频时间',
             type: 'category',
             boundaryGap: false,
             data: xdata
         },
         yAxis: {
+            name: '弹幕数量',
             type: 'value'
         },
+        dataZoom: [
+            {
+                type: 'inside', // 内置的缩放区域
+                xAxisIndex: 0, // 对应 x 轴
+                start: 0, // 默认开始位置
+                end: 100, // 默认结束位置（即不缩放）
+            },
+            {
+                type: 'inside', // 内置的缩放区域
+                yAxisIndex: 0, // 对应 y 轴
+                start: 0, // 默认开始位置
+                end: 100, // 默认结束位置（即不缩放）
+            },
+        ],
         series: [
             {
                 data: ydata,

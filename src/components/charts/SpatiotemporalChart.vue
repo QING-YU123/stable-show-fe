@@ -55,13 +55,60 @@ async function getDMS() {
             text: '弹幕时空分布散点图'
         },
         tooltip: {
-            // 显示数组第三个值
             formatter: function (params) {
-                return "弹幕内容：" + params.data[2];
+                // 获取评论日期、弹幕内容和视频时间
+                var commentDate = params.data[1];  // 评论日期
+                var danmuContent = params.data[2];  // 弹幕内容
+                var videoTime = params.data[0];  // 视频时间
+                // 计算分钟和秒
+                var minutes = Math.floor(videoTime / 60);
+                var seconds = videoTime % 60;
+                // 将结果输出为字符串
+                var formattedTime = minutes + "分钟 " + seconds + "秒";
+                // 进行拼接
+                var result;
+
+                result = "弹幕内容：" + danmuContent + "<br>评论日期：" + commentDate + "<br>视频时间：" + formattedTime
+
+                return result;
+            }
+
+        },
+        xAxis: {
+            type: 'value',
+            name: '视频时间',
+            nameGap: 16,
+            nameTextStyle: {
+                fontSize: 16
+            },
+            splitLine: {
+                show: true,
+                lineStyle: {
+                    type: 'solid', // 将 type 设置为 'solid' 启用实线
+                }
+            },
+            axisLabel: {
+                formatter: function (value) {
+                    return value + '秒';
+                }
             }
         },
-        xAxis: {},
+        dataZoom: [
+            {
+                type: 'inside', // 内置的缩放区域
+                xAxisIndex: 0, // 对应 x 轴
+                start: 0, // 默认开始位置
+                end: 100, // 默认结束位置（即不缩放）
+            },
+            {
+                type: 'inside', // 内置的缩放区域
+                yAxisIndex: 0, // 对应 y 轴
+                start: 0, // 默认开始位置
+                end: 100, // 默认结束位置（即不缩放）
+            },
+        ],
         yAxis: {
+            name: '弹幕发送时间',
             type: 'time'
         },
         series: {

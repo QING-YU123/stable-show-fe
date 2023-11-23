@@ -1,19 +1,24 @@
 <template>
-    <div>
+    <div class="out-box">
         <MainTopBar>
-            <div class="top-box-title">时空分析</div>
+            <div class="top-box-title">情感分析</div>
         </MainTopBar>
         <div class="figure-box">
-            <SpatiotemporalChart :bv="data.bv"></SpatiotemporalChart>
+            <SentimentAnalysisChart :bv="data.bv"></SentimentAnalysisChart>
+        </div>
+        <div class="mid-bar">
+            <MidBar :bv="data.bv"></MidBar>
         </div>
     </div>
 </template>
 
 
-<script setup lang="ts" >
-import SpatiotemporalChart from "@/components/charts/SpatiotemporalChart.vue";
-import MainTopBar from "@/components/components/MainTopBar.vue";
 
+<script setup lang="ts" >
+import MidBar from "@/components/components/MidBar.vue";
+import HighEnergyTime from "@/components/charts/HighEnergyTimeChart.vue";
+import SentimentAnalysisChart from "@/components/charts/SentimentAnalysisChart.vue";
+import MainTopBar from "@/components/components/MainTopBar.vue";
 import { useBiliStore } from "@/stores/bili";
 import { onMounted, reactive, watch } from "vue";
 
@@ -22,7 +27,6 @@ const useBili = useBiliStore()
 const data = reactive({
     bv: ''
 })
-
 onMounted(async () => {
     await useBili.getBv()
     data.bv = useBili.getBv()
@@ -36,9 +40,6 @@ watch(
     }
 )
 
-
-
-
 </script>
 
 <style scoped lang="sass">
@@ -50,7 +51,10 @@ watch(
     border-radius: 4px
     box-shadow: 0px 1px 4px rgba(21, 34, 50, 0.08)
     padding: 24px
-    height: 80vh
+    height: 40vh
 
-
+.mid-bar
+    margin-right: 22px
+    margin-left: 22px
+    margin-bottom: 32px
 </style>

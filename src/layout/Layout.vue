@@ -13,7 +13,8 @@
           <router-view />
         </el-main>
         <el-aside class="vr-aside" width="255px">
-          <FunctionMenuVue></FunctionMenuVue>
+          <FunctionMenuVue v-show="!data.state"></FunctionMenuVue>
+          <UpsMenu v-show="data.state"></UpsMenu>
         </el-aside>
       </el-container>
     </el-container>
@@ -22,10 +23,25 @@
 
 <script lang="ts" setup>
 
+import { reactive, watch } from "vue";
 import FunctionMenuVue from "./components/FunctionMenu.vue";
 import Menu from "./components/Menu.vue";
 import TopBar from "./components/TopBar.vue";
 import VideoList from "./components/function/VideoList.vue";
+import { useMultUpStore } from "@/stores/multUp";
+import UpsMenu from "./components/UpsMenu.vue";
+
+const data = reactive({
+  state: false
+})
+
+const multUpStore = useMultUpStore()
+
+watch(() => multUpStore.getState(), (newVal, oldVal) => {
+  console.log(newVal, oldVal)
+  data.state = newVal
+})
+
 
 </script>
 
@@ -35,6 +51,7 @@ import VideoList from "./components/function/VideoList.vue";
 
 .vr-aside
   background-color: #F5F7FA
+  overflow: scroll
 
   &::-webkit-scrollbar
     width: 8px
@@ -44,6 +61,7 @@ import VideoList from "./components/function/VideoList.vue";
 .vr-main
   margin: 0
   padding: 0
+  overflow: scroll
 
   &::-webkit-scrollbar
     width: 8px
