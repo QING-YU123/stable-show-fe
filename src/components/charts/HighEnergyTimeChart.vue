@@ -9,7 +9,8 @@
         </div>
     </div>
 </template>
-  
+
+
 <script setup>
 
 import { onMounted, onBeforeUpdate, ref, watch } from "vue";
@@ -84,22 +85,32 @@ async function getDMS() {
                 console.log(params[0]);
                 params.forEach(function (item) {
                     // item.value is an array containing [x, y] values
+                    console.log("视频长度" + vLength.value);
                     let xValue = Number.parseInt(params[0].axisValue);
                     let yValue = params[0].value;
-                    let xValue1 = xValue + 10;
-
-                    // Format and append tooltip content
-                    content += `时间段：${xValue}~${xValue1}秒<br>`;
-                    content += `弹幕数量: ${yValue}个<br>`;
+                    let xValue1 = 0;
+                    if (xValue !== 0 && xValue <= vLength.value) {
+                        xValue1 = xValue - dSize;
+                        if (xValue + dSize >= vLength.value) {
+                            xValue = vLength.value;
+                        }
+                        // Format and append tooltip content
+                        content += `时间段：${xValue1}~${xValue}秒<br>`;
+                        content += `弹幕数量: ${yValue}个<br>`;
+                    }
                 });
                 return content;
             }
         },
         xAxis: {
-            name: '视频时间',
             type: 'category',
             boundaryGap: false,
-            data: xdata
+            data: xdata,
+            axisTick: {
+                show: true,
+                alignWithLabel: true,
+                interval: 0
+            }
         },
         yAxis: {
             name: '弹幕数量',
@@ -133,12 +144,14 @@ async function getDMS() {
 
 //处理数据
 function dealRes(res) {
+    //获取视频总弹幕数
     vsize.value = 0;
     res.data.forEach((item) => {
         if (item.att !== undefined) {
             vsize.value++;
         }
     })
+    //获取视频名称
     vname.value = res.data[0].name;
     for (var i = 0; i <= vLength.value; i++) {
         rData.value[i] = 0;
@@ -154,70 +167,27 @@ function dealRes(res) {
     })
     let temp = 0;
     let ttemp = 0;
+    xdata.push(0);
+    ydata.push(0);
     for (var i = 1; i <= vLength.value; i++) {
         temp += rData.value[i];
-        if (i % dSize === 0) {
-            data.push([i - dSize, temp]);
-            xdata.push(i - dSize);
+        if (i % dSize === 0 && i + dSize < vLength.value) {
+            data.push([i, temp]);
+            xdata.push(i);
             ydata.push(temp);
             ttemp = i;
             temp = 0;
         }
         else if (i === vLength.value) {
-            data.push([ttemp, temp]);
-            xdata.push(ttemp);
+            data.push([ttemp + dSize, temp]);
+            xdata.push(ttemp + dSize);
             ydata.push(temp);
             temp = 0;
         }
     }
+    xdata.push(ttemp + dSize);
+    ydata.push(0);
 }
-
-
-//处理数据
-function controlRes(res) {
-    vname.value = res.data[0].name;
-    for (var i = 0; i <= vLength.value; i++) {
-        rData.value[i] = 0;
-    }
-    //逐个遍历数组
-    res.data.forEach((item) => {
-        if (item.att !== undefined) {
-            if (item.att[0]) {
-                let x = Number.parseInt(item.att[0]) + 1;
-                rData.value[x]++;
-            }
-        }
-    })
-    let temp = 0;
-    let ttemp = 0;
-    for (var i = 1; i <= vLength.value; i++) {
-        temp += rData.value[i];
-        if (i % dSize === 0) {
-            data.push([i - dSize, temp]);
-            ttemp = i;
-            temp = 0;
-        }
-        else if (i === vLength.value) {
-            data.push([ttemp, temp]);
-            temp = 0;
-        }
-    }
-    console.log("数据:" + data);
-    //测试
-    let rdatas = 0;
-    let datas = 0;
-    res.data.forEach((item) => {
-        if (item.att !== undefined) {
-            rdatas++;
-        }
-    })
-    console.log("原始数据数量" + rdatas);
-    data.forEach((item) => {
-        datas += item[1];
-    })
-    console.log("现在数据数量" + datas);
-}
-
 
 </script>
   

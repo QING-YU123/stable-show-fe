@@ -5,14 +5,13 @@
     <div id="main2" class="box__figure-box">
     </div>
   </div>
-
 </template>
 
 
 <script setup>
 
-import {onMounted, ref, watch} from "vue";
-import {getDMByBv} from '@/api/dm';
+import { onMounted, ref, watch } from "vue";
+import { getDMByBv } from '@/api/dm';
 import * as echarts from 'echarts'
 
 
@@ -96,13 +95,13 @@ async function getDMS() {
     console.log(data.value);
     data.value = [];
   }
-   let res = await getDMByBv({
-     bv: input.value
-   });
+  let res = await getDMByBv({
+    bv: input.value
+  });
 
-   console.log(input.value);
-   console.log(res.data);
-   controlRes(res);
+  console.log(input.value);
+  console.log(res.data);
+  controlRes(res);
   // await controlRes(res);
 
 
@@ -120,41 +119,41 @@ async function getDMS() {
     // 处理错误
     console.error('Error:', error);
   }
-    // 根据第四个值划分成四个数组
-    var positiveData = [];
-    var neutralData = [];
-    var negativeData = [];
-    var otherData = [];
+  // 根据第四个值划分成四个数组
+  var positiveData = [];
+  var neutralData = [];
+  var negativeData = [];
+  var otherData = [];
 
-    data.value.forEach(function (item) {
-      var emotion = item[3];
-      switch (emotion) {
-        case 'positive':
-          positiveData.push(item);
-          break;
-        case 'neutral':
-          neutralData.push(item);
-          break;
-        case 'negative':
-          negativeData.push(item);
-          break;
-        default:
-          otherData.push(item);
-      }
-    });
+  data.value.forEach(function (item) {
+    var emotion = item[3];
+    switch (emotion) {
+      case 'positive':
+        positiveData.push(item);
+        break;
+      case 'neutral':
+        neutralData.push(item);
+        break;
+      case 'negative':
+        negativeData.push(item);
+        break;
+      default:
+        otherData.push(item);
+    }
+  });
 
-    // 将划分后的数组存储在 data 对象中
-    data.positive = positiveData;
-    data.neutral = neutralData;
-    data.negative = negativeData;
-    data.other = otherData;
+  // 将划分后的数组存储在 data 对象中
+  data.positive = positiveData;
+  data.neutral = neutralData;
+  data.negative = negativeData;
+  data.other = otherData;
 
-    // 在这里处理加载的 JSON 数据
-    console.log(data.positive.length);
-    console.log('Positive Data:', data.positive);
-    console.log('Neutral Data:', data.neutral);
-    console.log('Negative Data:', data.negative);
-    console.log('Other Data:', data.other);
+  // 在这里处理加载的 JSON 数据
+  console.log(data.positive.length);
+  console.log('Positive Data:', data.positive);
+  console.log('Neutral Data:', data.neutral);
+  console.log('Negative Data:', data.negative);
+  console.log('Other Data:', data.other);
   // } else {
   //   console.error('Error loading JSON file:', xhr.status);
   // }
@@ -206,7 +205,7 @@ async function getDMS() {
 }
 async function analyzeDanmu(items) {
   try {
-    const response = await fetch('http://127.0.0.1:5000/analyze_danmu', {
+    const response = await fetch('http://8.130.40.44:5000/analyze_danmu', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

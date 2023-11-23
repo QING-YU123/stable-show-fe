@@ -1,10 +1,10 @@
 <template>
     <div>
         <MainTopBar>
-            <div class="top-box-title">高能时间</div>
+            <div class="top-box-title">多Up分析</div>
         </MainTopBar>
         <div class="figure-box">
-            <HighEnergyTime :bv="data.bv"></HighEnergyTime>
+            <MultUpsAnalysisChart :bv="data.bv"></MultUpsAnalysisChart>
         </div>
     </div>
 </template>
@@ -12,7 +12,7 @@
 
 
 <script setup lang="ts" >
-import HighEnergyTime from "@/components/charts/HighEnergyTimeChart.vue";
+import MultUpsAnalysisChart from "@/components/charts/MultUpsAnalysisChart.vue";
 import MainTopBar from "@/components/components/MainTopBar.vue";
 import { useBiliStore } from "@/stores/bili";
 import { useMultUpStore } from "@/stores/multUp";
@@ -36,6 +36,7 @@ onUnmounted(() => {
     console.log(multUpStore.getState(), "multUpStore.getState()");
 
 })
+
 
 watch(
     () => useBili.getBv(),

@@ -242,7 +242,7 @@ async function getDMS() {
 }
 async function analyzeDanmu(items) {
     try {
-        const response = await fetch('http://127.0.0.1:5000/analyze_danmu', {
+        const response = await fetch('http://8.130.40.44:5000/analyze_danmu', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
